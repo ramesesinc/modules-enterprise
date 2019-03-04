@@ -15,20 +15,17 @@ import com.rameses.osiris3.common.*;
 class AddRequirement implements RuleActionHandler {
 
 	public void execute(def params, def drools) {
-		def dtype = params.type;
-		def type = dtype.key;
-		def title = dtype.value;
-
+		def type = params.type;
 
 		def ct = RuleExecutionContext.getCurrentContext();
-		def req = ct.facts.find{ (it instanceof Requirement) && it.type == type };
-		//mark as included so it will be included in the output.
-		if( req ) {
-			req.included = true;
+
+		if(!ct.result.requirements) {
+			ct.result.requirements = new LinkedHashSet<Requirement>();
 		}
-		else {
-			req = new Requirement( type:type, title: title, completed:false, included: true );
-			ct.facts << req;
+		def req = new Requirement( new RequirementType(objid: type.key, title: type.value) );
+		boolean b = ct.result.requirements.add(req);
+		if(b) {
+			ct.facts << req;	
 		}
 	}
 

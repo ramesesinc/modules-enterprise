@@ -2,9 +2,10 @@ package enterprise.utils;
 
 import enterprise.facts.*;
 
-public abstract class VariableInfoProvider {
+public class VariableInfoProvider {
 
-	abstract String getSchemaName();
+
+	String getSchemaName();
 
 	public def createFact(dd) {
 		def cf = null;	
