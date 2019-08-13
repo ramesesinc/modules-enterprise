@@ -56,8 +56,10 @@ public class AddInfo implements RuleActionHandler {
 	public void execute(def params, def drools) {
 		def infotype = params.name;
 		if(!infotype) throw new Exception("type is required in any AskInfo action");
+		if( params.value == null && params.aggtype == null )
+		 	throw new Exception("Please specify value or aggtype in AddInfo action");
 
-		def aggtype = params.aggregate;
+		def aggtype = params.aggtype;
 		def value = null;
 		if(params.value) {
 			if(! (params.value instanceof ActionExpression)) {
@@ -82,6 +84,9 @@ public class AddInfo implements RuleActionHandler {
 		}
 		else {
 			def vinfo = createFact(  infoName, params );
+			if( aggtype ) {
+				value = getAggregateValue( value, 0, aggtype );
+			}			
 			vinfo.value = value;
 			ct.facts.add( vinfo );
 		}
