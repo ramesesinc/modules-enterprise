@@ -6,9 +6,23 @@ This should be transferred in more generic like system services
 
 class MenuNotificationService {
 	
+	@XConnection('socketio')
+    def socketio;
+
 	@ProxyMethod
 	public def getCount(def o ) {
 		return [count:0];
 	}
 	
+    @ProxyMethod
+    @Async
+    public def notify( def o) {
+    	if(o.notificationid) {
+    		socketio.send( o.notificationid, [:] );
+    	}
+    	if( o.domain ) {
+    		socketio.send(o.domain, [:] );
+    	}
+    }
+
 }

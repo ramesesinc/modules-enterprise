@@ -1,0 +1,11 @@
+<workunit extends="com/rameses/seti2/templates/CrudForm.xml"
+    schemaName="sys_siganture" >
+    <invokers>
+        <invoker type="sys_signature:create" caption="Create OBO Signature" action="create" target="popup"/>
+        <invoker type="sys_signature:open" caption="Open OBO Signature" action="open" target="popup"/>
+    </invokers>
+    <code class="com.rameses.enterprise.models.SysSignatureModel" />
+    <pages>
+        <page template="com.rameses.enterprise.views.SysSignaturePage" />
+    </pages>    
+</workunit>
