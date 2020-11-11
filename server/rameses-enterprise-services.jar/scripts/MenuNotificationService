@@ -16,13 +16,10 @@ class MenuNotificationService {
 	
     @ProxyMethod
     @Async
-    public def notify( def o) {
-    	if(o.notificationid) {
-    		socketio.send( o.notificationid, [:] );
-    	}
-    	if( o.domain ) {
-    		socketio.send(o.domain, [:] );
-    	}
+    public def notify( List list ) {
+        list.each {
+            socketio.send( it, [:] );
+        }
     }
 
 }
