@@ -23,8 +23,8 @@ class SysSignatureModel extends CrudFormModel {
     @PropertyChangeListener
     def listener = [
         "entity.user" : { o->
-            entity.objid = o.objid;
             entity.user = [name: o.lastname + ", " + o.firstname];
+            entity.userid = o.objid;
             entity.displayname = o.firstname;
             if( o.middlename ) entity.displayname + " "+ o.middlename.substring(0,1) + ".";
             entity.displayname += " " + o.lastname;
